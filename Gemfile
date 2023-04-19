@@ -48,7 +48,7 @@ gem 'rspec-rails', '~> 5.0', group: [:development, :test]
 gem 'webpacker', '~> 5.0'
 gem "ruby-openai"
 gem "dotenv"
-
+gem "daru"
 
 
 # Use Sass to process CSS
