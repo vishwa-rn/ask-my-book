@@ -1,20 +1,15 @@
-# app/services/answer_service.rb
 class AnswerService
   def initialize(question)
     @question = question
   end
 
   def fetch
-    # # Fetch the most relevant embedding and check cache
-    # embedding_id = EmbeddingService.new(@question).find_nearest
-    # answer = Rails.cache.fetch(embedding_id)
-
-    # # If answer not in cache, hit OpenAI API
-    # unless answer
-    #   answer = OpenAIService.new(@question).fetch
-    #   Rails.cache.write(embedding_id, answer)
-    # end
-    answer = OpenaiService.new(@question).fetch
+    embedding_service = EmbeddingService.new(@question)
+    nearest_chunks = embedding_service.knn
+    prompt_service = PromptService.new(@question, nearest_chunks)
+    prompt = prompt_service.create_prompt
+    # Pass the prompt to ChatGPT to generate an answer
+    answer = OpenaiService.new(prompt).fetch
     answer
   end
 end

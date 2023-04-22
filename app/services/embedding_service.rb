@@ -1,20 +1,29 @@
 # app/services/embedding_service.rb
-require 'nmslib'
-require 'json'
-
 class EmbeddingService
-  def initialize(question)
-    @question = question
+  def initialize(text)
+    @text = text
   end
 
-  def find_nearest
-    index = Nmslib.init(space: 'cosinesimil')
-    data = JSON.parse(File.read("data.json"))
+  def get_embedding
+    OpenaiService.embed_text(@text)
+  end
 
-    data.each { |item| index.addDataPoint(id: item['id'], vector: item['embedding']) }
-    index.createIndex()
+  def knn(k = 5)
+    query_embedding = get_embedding
+    query_embedding = query_embedding['data'][0]['embedding']
+    distances = {}
+    $CHUNKS_EMBEDDING_DATA.each_with_index do |chunk_embedding, index|
+      distances[index] = cosine_similarity(query_embedding, chunk_embedding['embeddings'])
+    end
+    nearest_indices = distances.sort_by { |_, value| -value }.first(k).map(&:first)
+    nearest_indices.map { |index| $CHUNKS_DATA[index] }
+  end
 
-    nearest_neighbor = index.knnQuery(@question, k: 1)
-    nearest_neighbor.first[:id]
+  private
+
+  def cosine_similarity(vec1, vec2)
+    dot_product = vec1.zip(vec2).map { |a, b| a * b }.sum
+    magnitude = Math.sqrt(vec1.map { |x| x**2 }.sum) * Math.sqrt(vec2.map { |x| x**2 }.sum)
+    dot_product / magnitude
   end
 end

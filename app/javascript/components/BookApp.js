@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CenteredInput from "./CenteredInput";
 import SubmitButton from "./SubmitButton";
 import Answer from "./Answer";
-import bookThumbnail from "../images/atomic-habits.jpg";
+import bookThumbnail from "../images/origin-of-species.jpeg";
 
 const BookApp = () => {
   const [inputValue, setInputValue] = useState("");
@@ -41,10 +41,10 @@ const BookApp = () => {
       />
       {/* Add the book name and text */}
       <h1 className="text-2xl text-center text-white font-bold mb-2">
-        Atomic Habits
+        Origin of species
       </h1>
       <p className="text-lg text-center text-white px-4 mb-6">
-        This is an experiment in using AI to make my book's content more
+        This is an experiment in using AI to make the book's content more
         accessible. <br /> Ask a question and AI'll answer it in real-time:
       </p>
       <CenteredInput value={inputValue} onChange={handleInputChange} />

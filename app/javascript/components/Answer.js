@@ -18,7 +18,7 @@ const Answer = ({ text }) => {
   }, [text]);
 
   return (
-    <p className="w-full max-w-xl text-left text-white text-lg mt-4">
+    <p className="w-full max-w-3xl text-left text-white text-lg mt-4">
       {displayedText}
     </p>
   );
