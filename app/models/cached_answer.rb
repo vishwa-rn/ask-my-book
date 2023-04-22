@@ -1,0 +1,2 @@
+class CachedAnswer < ApplicationRecord
+end
