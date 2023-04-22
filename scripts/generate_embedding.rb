@@ -21,7 +21,7 @@ input_csv_filename = 'books/pg2009.pdf.chunks.csv'
 output_csv_filename = 'books/pg2009.pdf.chunks.embeddings.csv'
 
 rows = []
-client = OpenAI::Client.new(access_token: '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')
+client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
 
 counter = 0
 CSV.open(output_csv_filename, 'w', col_sep: "\t") do |csv|

@@ -8,7 +8,6 @@ class OpenaiService
 
   def fetch
     # Initialize OpenAI API
-    # openai_client = OpenAI::Client.new(api_key: "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", default_engine: "ada")
     client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
 
     response = client.chat(
