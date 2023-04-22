@@ -13,7 +13,7 @@ test:
 
 production:
   <<: *default
-  database: book_interaction_app_production
+  database: <%= ENV['BOOK_INTERACTION_APP_DATABASE'] %>
   username: <%= ENV['BOOK_INTERACTION_APP_DATABASE_USER'] %>
   password: <%= ENV['BOOK_INTERACTION_APP_DATABASE_PASSWORD'] %>
   host: <%= ENV['BOOK_INTERACTION_APP_DATABASE_HOST'] %>
