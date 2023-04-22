@@ -1,3 +1,11 @@
-const { environment } = require('@rails/webpacker')
+const { environment } = require("@rails/webpacker");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = environment
+environment.plugins.prepend(
+  "MiniCssExtract",
+  new MiniCssExtractPlugin({ filename: "stylesheets/[name]-[contenthash].css" })
+);
+
+module.exports = environment;
+
+module.exports = environment;
